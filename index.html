@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c7be5;
+            --secondary: #6c757d;
+            --success: #00d97e;
+            --danger: #e63757;
+            --light: #f8f9fa;
+            --dark: #12263f;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .search-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #1a68d1;
+        }
+        
+        button.secondary {
+            background-color: var(--secondary);
+        }
+        
+        button.secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .employee-details {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            width: 120px;
+        }
+        
+        .detail-value {
+            flex: 1;
+        }
+        
+        .images-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .image-card {
+            flex: 1;
+            min-width: 250px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .image-title {
+            background-color: #f8f9fa;
+            padding: 10px;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .image-content {
+            padding: 15px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-placeholder {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .status-bar {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-users"></i> Employee Management System</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="search-panel">
+            <div class="form-group">
+                <label for="empNumber">Employee Number</label>
+                <input type="text" id="empNumber" placeholder="Enter employee number">
+            </div>
+            <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+            <button id="clearBtn" class="secondary"><i class="fas fa-broom"></i> Clear</button>
+        </div>
+        
+        <div class="employee-details hidden" id="employeeDetails">
+            <div class="detail-row">
+                <div class="detail-label">Name:</div>
+                <div class="detail-value" id="empName"></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Position:</div>
+                <div class="detail-value" id="empPosition"></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Company:</div>
+                <div class="detail-value" id="empCompany"></div>
+            </div>
+            
+            <div class="images-container">
+                <div class="image-card">
+                    <div class="image-title">Residence Card</div>
+                    <div class="image-content" id="residenceImage">
+                        <div class="image-placeholder">No image available</div>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <div class="image-title">Unified ID</div>
+                    <div class="image-content" id="unifiedImage">
+                        <div class="image-placeholder">No image available</div>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <div class="image-title">Passport</div>
+                    <div class="image-content" id="passportImage">
+                        <div class="image-placeholder">No image available</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="status-bar">
+        <div class="container" id="statusMessage">Ready</div>
+    </div>
+
+    <script>
+        // Sample employee data
+        const employees = [
+            {
+                number: 1001,
+                name: "John Doe",
+                position: "Software Engineer",
+                company: "Tech Corp",
+                residenceCard: "https://images.pexels.com/photos/3561987/pexels-photo-3561987.jpeg",
+                unifiedId: "https://images.pexels.com/photos/3561987/pexels-photo-3561987.jpeg",
+                passport: "https://images.pexels.com/photos/3561987/pexels-photo-3561987.jpeg"
+            },
+            {
+                number: 1002,
+                name: "Jane Smith",
+                position: "Product Manager",
+                company: "Innovate Inc",
+                residenceCard: "",
+                unifiedId: "https://images.pexels.com/photos/3561987/pexels-photo-3561987.jpeg",
+                passport: ""
+            }
+        ];
+
+        // DOM elements
+        const empNumberInput = document.getElementById('empNumber');
+        const searchBtn = document.getElementById('searchBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const employeeDetails = document.getElementById('employeeDetails');
+        const empName = document.getElementById('empName');
+        const empPosition = document.getElementById('empPosition');
+        const empCompany = document.getElementById('empCompany');
+        const residenceImage = document.getElementById('residenceImage');
+        const unifiedImage = document.getElementById('unifiedImage');
+        const passportImage = document.getElementById('passportImage');
+        const statusMessage = document.getElementById('statusMessage');
+
+        // Event listeners
+        searchBtn.addEventListener('click', searchEmployee);
+        clearBtn.addEventListener('click', clearFields);
+        empNumberInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchEmployee();
+        });
+
+        function searchEmployee() {
+            const empNumber = empNumberInput.value.trim();
+            
+            if (!empNumber) {
+                updateStatus('Please enter employee number', 'error');
+                return;
+            }
+
+            updateStatus('Searching for employee...');
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                const employee = employees.find(emp => emp.number == empNumber);
+                
+                if (employee) {
+                    displayEmployeeDetails(employee);
+                    updateStatus(`Employee found: ${employee.name}`);
+                } else {
+                    if (confirm(`Employee #${empNumber} not found. Would you like to add this employee?`)) {
+                        addNewEmployee(empNumber);
+                    } else {
+                        updateStatus('Employee not found');
+                    }
+                }
+            }, 500);
+        }
+
+        function displayEmployeeDetails(employee) {
+            employeeDetails.classList.remove('hidden');
+            
+            empName.textContent = employee.name;
+            empPosition.textContent = employee.position;
+            empCompany.textContent = employee.company;
+            
+            displayImage(residenceImage, employee.residenceCard);
+            displayImage(unifiedImage, employee.unifiedId);
+            displayImage(passportImage, employee.passport);
+        }
+
+        function displayImage(container, imageUrl) {
+            container.innerHTML = '';
+            
+            if (imageUrl) {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '200px';
+                container.appendChild(img);
+            } else {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'image-placeholder';
+                placeholder.textContent = 'No image available';
+                container.appendChild(placeholder);
+            }
+        }
+
+        function clearFields() {
+            empNumberInput.value = '';
+            employeeDetails.classList.add('hidden');
+            updateStatus('Fields cleared');
+        }
+
+        function addNewEmployee(empNumber) {
+            const name = prompt("Enter employee name:");
+            if (!name) return;
+            
+            const position = prompt("Enter employee position:");
+            if (!position) return;
+            
+            const company = prompt("Enter employee company:");
+            if (!company) return;
+
+            const newEmployee = {
+                number: parseInt(empNumber),
+                name,
+                position,
+                company,
+                residenceCard: "",
+                unifiedId: "",
+                passport: ""
+            };
+            
+            employees.push(newEmployee);
+            displayEmployeeDetails(newEmployee);
+            updateStatus(`Employee #${empNumber} added successfully`);
+        }
+
+        function updateStatus(message, type = 'info') {
+            statusMessage.textContent = message;
+            
+            if (type === 'error') {
+                statusMessage.style.color = 'var(--danger)';
+            } else {
+                statusMessage.style.color = 'var(--dark)';
+            }
+        }
+    </script>
+</body>
+</html>
